@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
-import 'Screen/Home.dart';
+import 'Screen/home/Home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

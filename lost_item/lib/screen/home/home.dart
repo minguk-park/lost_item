@@ -40,6 +40,9 @@ class Home extends StatelessWidget {
             highlightColor: Colors.transparent,
             onTap: () {
               api.getMarketsOption();
+              // GetConnectTest().test();
+              api.postMarketsSearch('조화');
+              // getTest.test();
               Get.to(() => const Search());
             },
             child: const Padding(

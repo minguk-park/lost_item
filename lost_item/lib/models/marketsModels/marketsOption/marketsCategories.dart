@@ -8,8 +8,13 @@ part 'marketsCategories.g.dart';
 class MarketsCategories {
   MarketsCategories(this.subs, this.code, this.codeName);
 
+  @JsonKey(name: 'Subs')
   List<MarketsCategoriesSubs>? subs;
+
+  @JsonKey(name: 'Code')
   int? code;
+
+  @JsonKey(name: 'CodeName')
   String? codeName;
 
   factory MarketsCategories.fromJson(Map<String, dynamic> json) =>

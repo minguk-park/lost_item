@@ -6,7 +6,10 @@ part 'marketsCategoriesSubs.g.dart';
 class MarketsCategoriesSubs {
   MarketsCategoriesSubs(this.code, this.codeName);
 
+  @JsonKey(name: 'Code')
   int? code;
+
+  @JsonKey(name: 'CodeName')
   String? codeName;
 
   factory MarketsCategoriesSubs.fromJson(Map<String, dynamic> json) =>

@@ -27,9 +27,11 @@ class Api {
     if (response.statusCode == 200) {
       var responseData = await response.stream.bytesToString();
       var marketOptionsMap = jsonDecode(responseData);
-      print(marketOptionsMap);
       marketOptions = Markets.fromJson(marketOptionsMap);
-      print(marketOptions);
+      // print('Categories: ' + marketOptions.categories![0].codeName.toString());
+      // print('ItemGrades: ' + marketOptions.itemGrades.toString());
+      // print('ItemTiers: ' + marketOptions.itemTiers.toString());
+      // print('Classes: ' + marketOptions.classes.toString());
     } else {
       // print(response.reasonPhrase);
       switch (response.statusCode) {

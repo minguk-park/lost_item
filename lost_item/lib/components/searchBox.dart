@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lost_item/function/api.dart';
 
-defaultSearchBox() {
-  return Container();
+final api = Get.put(Api());
+
+defaultSearchBox(controller, onSubmit) {
+  return TextField(
+    controller: controller,
+    onSubmitted: onSubmit,
+    maxLines: 1,
+  );
+}
+
+searchOnSubmit(String text) {
+  api.postMarketsSearch(text);
+  api.searchResult.refresh();
 }

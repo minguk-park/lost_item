@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       getPages: [
         GetPage(
           name: "/home",
-          page: () => const Home(),
+          page: () => Home(),
         ),
       ],
     );

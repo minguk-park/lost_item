@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/models/marketsModels/marketsSearch/searchResult.dart';
+import 'package:lost_item/models/marketsModels/marketsSearch/searchResultItems.dart';
 import 'package:lost_item/secret.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +13,15 @@ import '../models/marketsModels/marketsOption/markets.dart';
 class Api extends GetxController {
   late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
+  TextEditingController searchController = TextEditingController();
+
+  var itemsCode = [].obs;
+  var items = [].obs;
+
+  //카테고리당 3번씩 요청 -> 카테고리당 최대 30개씩 검색결과가 노출
+  var requestPerCategory = 3;
+  var itemsPageSize = 10;
+  var itemsTotalCount = 0;
 
   Future<void> getMarketsOption() async {
     var headers = {
@@ -31,10 +42,10 @@ class Api extends GetxController {
       var responseData = await response.stream.bytesToString();
       var marketOptionsMap = jsonDecode(responseData);
       marketOptions = Markets.fromJson(marketOptionsMap);
-      // print('Categories: ' + marketOptions.categories!.length.toString());
-      // print('ItemGrades: ' + marketOptions.itemGrades.toString());
-      // print('ItemTiers: ' + marketOptions.itemTiers.toString());
-      // print('Classes: ' + marketOptions.classes.toString());
+
+      marketOptions.categories?.forEach((element) {
+        itemsCode.add(element.code);
+      });
     } else {
       // print(response.reasonPhrase);
       switch (response.statusCode) {
@@ -59,7 +70,7 @@ class Api extends GetxController {
 //   "ItemGrade": "string",
 //   "ItemName": "string",
 //   "PageNo": 0,
-//   "SortCondition": "ASC"       필수
+//   "SortCondition": "ASC"
 // }
   Future<void> postMarketsSearch(String saerch) async {
     var headers = {
@@ -78,10 +89,15 @@ class Api extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      // var responseData = await response.stream.bytesToString();
       var searchResultMap = jsonDecode(response.body);
       searchResult = SearchResult.fromJson(searchResultMap).obs;
-      print('searchResultItems: ${searchResult.value!.totalCount}');
+      itemsTotalCount = searchResult.value?.totalCount ?? 0;
+
+      if (itemsTotalCount > requestPerCategory) {
+        itemsTotalCount = requestPerCategory;
+      }
+
+      update();
     } else {
       print(response.statusCode);
       switch (response.statusCode) {
@@ -96,6 +112,8 @@ class Api extends GetxController {
       }
     }
   }
+
+  void allItemSearch(String saerch) {}
 
   void getAuctionsOption() {}
 }

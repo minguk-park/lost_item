@@ -8,12 +8,11 @@ import 'package:lost_item/function/api.dart';
 import 'package:lost_item/models/marketsModels/marketsOption/marketsCategories.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
+  final api = Get.put(Api());
 
   @override
   Widget build(BuildContext context) {
-    Api api = Api();
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
@@ -38,12 +37,9 @@ class Home extends StatelessWidget {
           InkWell(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            onTap: () {
-              api.getMarketsOption();
-              // GetConnectTest().test();
-              api.postMarketsSearch('조화');
-              // getTest.test();
-              Get.to(() => const Search());
+            onTap: () async {
+              await api.getMarketsOption();
+              Get.to(() => Search());
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(

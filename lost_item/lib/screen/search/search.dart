@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/components/listBox.dart';
 import 'package:lost_item/components/searchBox.dart';
+import 'package:lost_item/components/seletDialog.dart';
 import 'package:lost_item/function/api.dart';
 
 class Search extends StatelessWidget {
@@ -39,8 +40,16 @@ class Search extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
+                Row(
                   children: [
+                    InkWell(
+                      onTap: () {
+                        defaultSelectDialog();
+                      },
+                      child: Container(
+                        child: Text('adf'),
+                      ),
+                    ),
                     defaultSearchBox(api.searchController, searchOnSubmit),
                     InkWell(
                       onTap: () async {
@@ -53,17 +62,18 @@ class Search extends StatelessWidget {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
+                    controller: api.itemsListScrollController,
                     scrollDirection: Axis.vertical,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: List.generate(
                         api.searchResult.value == null
                             ? 0
-                            : api.searchResult.value!.totalCount ?? 0,
+                            : api.itemsList.length,
                         (index) => defaultListBox(
-                          api.searchResult.value!.items![index].name!,
-                          api.searchResult.value!.items![index].yDayAvgPrice!,
-                          api.searchResult.value!.items![index].recentPrice!,
+                          api.itemsList[index].name,
+                          api.itemsList[index].yDayAvgPrice,
+                          api.itemsList[index].recentPrice,
                         ),
                       ),
                     ),

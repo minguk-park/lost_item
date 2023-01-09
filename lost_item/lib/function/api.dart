@@ -14,14 +14,33 @@ class Api extends GetxController {
   late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
   TextEditingController searchController = TextEditingController();
+  final ScrollController itemsListScrollController = ScrollController();
 
-  var itemsCode = [].obs;
-  var items = [].obs;
-
-  //카테고리당 3번씩 요청 -> 카테고리당 최대 30개씩 검색결과가 노출
+  RxList itemsCode = [].obs;
   var requestPerCategory = 3;
   var itemsPageSize = 10;
+
+  //init
+  var searchWord = '';
+  var itemsList = [].obs;
   var itemsTotalCount = 0;
+  var totalPageNo = 0;
+  var curPage = 1.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    itemsListScrollEvent();
+  }
+
+  void itemsListScrollEvent() {
+    itemsListScrollController.addListener(() async {
+      if (itemsListScrollController.position.pixels ==
+          itemsListScrollController.position.maxScrollExtent) {
+        await postMarketsSearchPagenation();
+      }
+    });
+  }
 
   Future<void> getMarketsOption() async {
     var headers = {
@@ -39,13 +58,20 @@ class Api extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      itemsCode.clear();
       var responseData = await response.stream.bytesToString();
       var marketOptionsMap = jsonDecode(responseData);
       marketOptions = Markets.fromJson(marketOptionsMap);
 
       marketOptions.categories?.forEach((element) {
-        itemsCode.add(element.code);
+        Map<String, dynamic> tempMap = <String, dynamic>{};
+
+        //{"CodeName":Code}
+        tempMap = {element.codeName!: element.code};
+        itemsCode.add(tempMap);
       });
+
+      print(itemsCode);
     } else {
       // print(response.reasonPhrase);
       switch (response.statusCode) {
@@ -72,7 +98,7 @@ class Api extends GetxController {
 //   "PageNo": 0,
 //   "SortCondition": "ASC"
 // }
-  Future<void> postMarketsSearch(String saerch) async {
+  Future<void> postMarketsSearch(String search) async {
     var headers = {
       'accept': 'application/json',
       'authorization': 'Bearer ${Secret.devApiKey}',
@@ -84,18 +110,73 @@ class Api extends GetxController {
       headers: headers,
       body: json.encode({
         "CategoryCode": 50000,
-        "ItemName": saerch,
+        "ItemName": search,
       }),
     );
 
     if (response.statusCode == 200) {
       var searchResultMap = jsonDecode(response.body);
       searchResult = SearchResult.fromJson(searchResultMap).obs;
-      itemsTotalCount = searchResult.value?.totalCount ?? 0;
 
-      if (itemsTotalCount > requestPerCategory) {
-        itemsTotalCount = requestPerCategory;
+      itemsTotalCount = searchResult.value?.totalCount ?? 0;
+      if (itemsTotalCount != 0) {
+        totalPageNo = itemsTotalCount ~/ itemsPageSize;
+        if (itemsTotalCount % itemsPageSize != 0) {
+          totalPageNo = totalPageNo + 1;
+        }
       }
+      searchResult.value?.items?.forEach((element) {
+        itemsList.add(element);
+      });
+      searchWord = search;
+
+      // print(itemsList[0].name);
+
+      update();
+    } else {
+      print(response.statusCode);
+      switch (response.statusCode) {
+        case 401:
+        // Fluttertoast.showToast(msg: '잘못된 회원정보입니다. 다시 로그인해주세요.');
+        // final authController = Get.put(AuthGetX());
+        // authController.authClear();
+        // break;
+        default:
+          print('postMarketsSearch: 알 수 없는 오류');
+          break;
+      }
+    }
+  }
+
+  Future<void> postMarketsSearchPagenation() async {
+    if (totalPageNo < curPage.value) return;
+    curPage = curPage + 1;
+    var headers = {
+      'accept': 'application/json',
+      'authorization': 'Bearer ${Secret.devApiKey}',
+      'Content-Type': 'application/json',
+    };
+
+    var response = await http.post(
+      Uri.parse(Env.marketSearch),
+      headers: headers,
+      body: json.encode({
+        "CategoryCode": 50000,
+        "ItemName": searchWord,
+        "PageNo": curPage.value,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      var searchResultMap = jsonDecode(response.body);
+      searchResult = SearchResult.fromJson(searchResultMap).obs;
+
+      // if (itemsTotalCount > requestPerCategory) {
+      //   itemsTotalCount = requestPerCategory;
+      // }
+      searchResult.value?.items?.forEach((element) {
+        itemsList.add(element);
+      });
 
       update();
     } else {

@@ -5,10 +5,12 @@ import 'package:lost_item/function/api.dart';
 final api = Get.put(Api());
 
 defaultSearchBox(controller, onSubmit) {
-  return TextField(
-    controller: controller,
-    onSubmitted: onSubmit,
-    maxLines: 1,
+  return Flexible(
+    child: TextField(
+      controller: controller,
+      onSubmitted: onSubmit,
+      maxLines: 1,
+    ),
   );
 }
 

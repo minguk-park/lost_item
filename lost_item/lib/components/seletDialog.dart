@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/function/functions.dart';
 
-defaultSelectDialog(List list, context) {
+defaultSelectDialog(List list, Function function, context) {
   return Get.dialog(
     Dialog(
       child: Column(
@@ -10,7 +10,7 @@ defaultSelectDialog(List list, context) {
           list.length,
           (index) => InkWell(
             onTap: () {
-              Functions().selectDialog(index);
+              function(index);
               Navigator.of(context).pop();
             },
             child: Container(

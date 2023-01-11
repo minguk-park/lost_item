@@ -46,6 +46,16 @@ class Api extends GetxController {
     });
   }
 
+  initValue() {
+    searchWord = '';
+    itemsList.value = [];
+    itemsTotalCount = 0;
+    totalPageNo = 0;
+    curPage.value = 1;
+
+    update();
+  }
+
   Future<void> getMarketsOption() async {
     var headers = {
       'Accept': 'application/json',
@@ -120,6 +130,8 @@ class Api extends GetxController {
     );
 
     if (response.statusCode == 200) {
+      initValue();
+
       var searchResultMap = jsonDecode(response.body);
       searchResult = SearchResult.fromJson(searchResultMap).obs;
 

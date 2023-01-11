@@ -7,6 +7,7 @@ import 'package:lost_item/components/listBox.dart';
 import 'package:lost_item/components/searchBox.dart';
 import 'package:lost_item/components/seletDialog.dart';
 import 'package:lost_item/function/api.dart';
+import 'package:lost_item/function/functions.dart';
 
 class Search extends StatelessWidget {
   Search({Key? key}) : super(key: key);
@@ -44,7 +45,8 @@ class Search extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        defaultSelectDialog(api.itemsCodeName, buildContext);
+                        defaultSelectDialog(api.itemsCodeName,
+                            Functions().selectDialog, buildContext);
                       },
                       child: Obx(
                         () => Container(

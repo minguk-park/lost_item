@@ -39,6 +39,7 @@ class Home extends StatelessWidget {
             highlightColor: Colors.transparent,
             onTap: () async {
               await api.getMarketsOption();
+              api.initValue();
               Get.to(() => Search());
             },
             child: const Padding(

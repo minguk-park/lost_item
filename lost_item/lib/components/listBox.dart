@@ -6,38 +6,51 @@ defaultListBox(
   print(imgUrl);
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
-    child: Row(
-      children: [
-        CachedNetworkImage(
-          imageUrl: imgUrl,
-          imageBuilder: (context, imageProvier) {
-            return InteractiveViewer(
-              child: Container(
-                height: 80,
-                width: 80,
-                decoration: BoxDecoration(
-                  image:
-                      DecorationImage(image: imageProvier, fit: BoxFit.cover),
-                ),
-              ),
-            );
-          },
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    child: Container(
+      decoration: const BoxDecoration(
+        color: Color(0xffbbbbbb),
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
           children: [
-            Text(
-              name,
+            CachedNetworkImage(
+              imageUrl: imgUrl,
+              imageBuilder: (context, imageProvier) {
+                return InteractiveViewer(
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0)),
+                      image: DecorationImage(
+                          image: imageProvier, fit: BoxFit.cover),
+                    ),
+                  ),
+                );
+              },
             ),
-            Text(
-              avgPrice.toString(),
-            ),
-            Text(
-              recentPrice.toString(),
+            Container(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                ),
+                Container(height: 7),
+                Text(
+                  '평균 가격: $avgPrice',
+                ),
+                Text(
+                  '최근 가격: $recentPrice',
+                ),
+              ],
             ),
           ],
         ),
-      ],
+      ),
     ),
   );
 }

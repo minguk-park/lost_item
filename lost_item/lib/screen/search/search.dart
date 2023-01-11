@@ -41,31 +41,36 @@ class Search extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        defaultSelectDialog(api.itemsCodeName,
-                            Functions().selectDialog, buildContext);
-                      },
-                      child: Obx(
-                        () => Container(
-                          width: 70,
-                          child: Center(
-                            child: Text(api.selectCodeName.value),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          defaultSelectDialog(api.itemsCodeName,
+                              Functions().selectDialog, buildContext);
+                        },
+                        child: Obx(
+                          () => Container(
+                            width: 70,
+                            child: Center(
+                              child: Text(api.selectCodeName.value),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    defaultSearchBox(api.searchController, searchOnSubmit),
-                    InkWell(
-                      onTap: () async {
-                        print('tap icon');
-                        await api.postMarketsSearch(api.searchController.text);
-                      },
-                      child: const Icon(Icons.search),
-                    ),
-                  ],
+                      defaultSearchBox(api.searchController, searchOnSubmit),
+                      InkWell(
+                        onTap: () async {
+                          print('tap icon');
+                          await api
+                              .postMarketsSearch(api.searchController.text);
+                        },
+                        child: const Icon(Icons.search),
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: SingleChildScrollView(

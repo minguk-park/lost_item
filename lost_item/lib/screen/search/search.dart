@@ -13,7 +13,7 @@ class Search extends StatelessWidget {
   final api = Get.put(Api());
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext buildContext) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -44,10 +44,15 @@ class Search extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        defaultSelectDialog();
+                        defaultSelectDialog(api.itemsCodeName, buildContext);
                       },
-                      child: Container(
-                        child: Text('adf'),
+                      child: Obx(
+                        () => Container(
+                          width: 70,
+                          child: Center(
+                            child: Text(api.selectCodeName.value),
+                          ),
+                        ),
                       ),
                     ),
                     defaultSearchBox(api.searchController, searchOnSubmit),

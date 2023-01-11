@@ -16,7 +16,8 @@ class Api extends GetxController {
   TextEditingController searchController = TextEditingController();
   final ScrollController itemsListScrollController = ScrollController();
 
-  RxList itemsCode = [].obs;
+  Map<String, dynamic> itemsCode = <String, dynamic>{};
+  List itemsCodeName = [];
   var requestPerCategory = 3;
   var itemsPageSize = 10;
 
@@ -26,6 +27,9 @@ class Api extends GetxController {
   var itemsTotalCount = 0;
   var totalPageNo = 0;
   var curPage = 1.obs;
+
+  var selectCodeName = "강화 재료".obs;
+  var selectCode = 0.obs; //default = 강화 재료
 
   @override
   void onInit() {
@@ -59,19 +63,20 @@ class Api extends GetxController {
 
     if (response.statusCode == 200) {
       itemsCode.clear();
+      itemsCodeName.clear();
       var responseData = await response.stream.bytesToString();
       var marketOptionsMap = jsonDecode(responseData);
       marketOptions = Markets.fromJson(marketOptionsMap);
 
       marketOptions.categories?.forEach((element) {
-        Map<String, dynamic> tempMap = <String, dynamic>{};
-
-        //{"CodeName":Code}
-        tempMap = {element.codeName!: element.code};
-        itemsCode.add(tempMap);
+        itemsCode.addEntries({element.codeName!: element.code}.entries);
+        itemsCodeName.add(element.codeName!);
       });
 
-      print(itemsCode);
+      selectCode.value = itemsCode[selectCodeName];
+
+      // print(itemsCode);
+      // print(itemsCodeName);
     } else {
       // print(response.reasonPhrase);
       switch (response.statusCode) {
@@ -109,7 +114,7 @@ class Api extends GetxController {
       Uri.parse(Env.marketSearch),
       headers: headers,
       body: json.encode({
-        "CategoryCode": 50000,
+        "CategoryCode": selectCode.value,
         "ItemName": search,
       }),
     );
@@ -161,7 +166,7 @@ class Api extends GetxController {
       Uri.parse(Env.marketSearch),
       headers: headers,
       body: json.encode({
-        "CategoryCode": 50000,
+        "CategoryCode": selectCode.value,
         "ItemName": searchWord,
         "PageNo": curPage.value,
       }),

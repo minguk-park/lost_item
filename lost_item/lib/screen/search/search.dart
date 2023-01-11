@@ -78,6 +78,7 @@ class Search extends StatelessWidget {
                             ? 0
                             : api.itemsList.length,
                         (index) => defaultListBox(
+                          api.itemsList[index].icon,
                           api.itemsList[index].name,
                           api.itemsList[index].yDayAvgPrice,
                           api.itemsList[index].recentPrice,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 defaultListBox(
     String imgUrl, String name, double avgPrice, double recentPrice) {
-  print(imgUrl);
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
     child: Container(
@@ -14,39 +13,68 @@ defaultListBox(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CachedNetworkImage(
-              imageUrl: imgUrl,
-              imageBuilder: (context, imageProvier) {
-                return InteractiveViewer(
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10.0)),
-                      image: DecorationImage(
-                          image: imageProvier, fit: BoxFit.cover),
-                    ),
-                  ),
-                );
-              },
-            ),
-            Container(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(
-                  name,
+                CachedNetworkImage(
+                  imageUrl: imgUrl,
+                  imageBuilder: (context, imageProvier) {
+                    return InteractiveViewer(
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10.0)),
+                          image: DecorationImage(
+                              image: imageProvier, fit: BoxFit.cover),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                Container(height: 7),
-                Text(
-                  '평균 가격: $avgPrice',
-                ),
-                Text(
-                  '최근 가격: $recentPrice',
+                Container(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                    ),
+                    Container(height: 7),
+                    Text(
+                      '평균 가격: $avgPrice',
+                    ),
+                    Text(
+                      '최근 가격: $recentPrice',
+                    ),
+                  ],
                 ),
               ],
+            ),
+            InkWell(
+              onTap: () {
+                print('tap Icon');
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                // child: Icon(
+                //   Icons.star_border,
+                //   color: Color.fromARGB(75, 0, 0, 0),
+                // ),
+                child: Stack(
+                  children: const [
+                    Icon(
+                      Icons.star,
+                      color: Color.fromARGB(255, 242, 192, 44),
+                    ),
+                    Icon(
+                      Icons.star_border,
+                      color: Color.fromARGB(255, 200, 150, 20),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

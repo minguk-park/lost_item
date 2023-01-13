@@ -30,4 +30,13 @@ class Functions extends GetxController {
     String? stringOfItems = await storage.read(key: 'bookmark');
     List<dynamic> listOfItems = jsonDecode(stringOfItems!);
   }
+
+  createItemInfo(int categoryCode, String itemGrade, String itemName) {
+    Map<String, dynamic> itemsInfo = {
+      "categoryCode": categoryCode,
+      "itemGrade": itemGrade,
+      "itemName": itemName,
+    };
+    print(itemsInfo);
+  }
 }

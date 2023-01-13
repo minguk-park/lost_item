@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lost_item/function/functions.dart';
 
 defaultListBox(
     String imgUrl, String name, double avgPrice, double recentPrice) {
@@ -54,7 +55,8 @@ defaultListBox(
             ),
             InkWell(
               onTap: () {
-                print('tap Icon');
+                print('tap bookmark Icon');
+                // Functions().createItemInfo(11, "aaa", 22, "bbb", "ccc");
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),

@@ -82,12 +82,20 @@ class Search extends StatelessWidget {
                         api.searchResult.value == null
                             ? 0
                             : api.itemsList.length,
-                        (index) => defaultListBox(
-                          api.itemsList[index].icon,
-                          api.itemsList[index].name,
-                          api.itemsList[index].yDayAvgPrice,
-                          api.itemsList[index].recentPrice,
-                        ),
+                        (index) {
+                          var itemMap = api.itemsList[index];
+                          Functions().createItemInfo(
+                            api.selectCode.value,
+                            itemMap.grade,
+                            itemMap.name,
+                          );
+                          return defaultListBox(
+                            itemMap.icon,
+                            itemMap.name,
+                            itemMap.yDayAvgPrice,
+                            itemMap.recentPrice,
+                          );
+                        },
                       ),
                     ),
                   ),

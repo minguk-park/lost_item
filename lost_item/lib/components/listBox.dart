@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_item/function/functions.dart';
 
-defaultListBox(
-    String imgUrl, String name, double avgPrice, double recentPrice) {
+defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
+    double curPrice) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
     child: Container(
@@ -48,6 +48,9 @@ defaultListBox(
                     ),
                     Text(
                       '최근 가격: $recentPrice',
+                    ),
+                    Text(
+                      '현재 최저가: $curPrice',
                     ),
                   ],
                 ),

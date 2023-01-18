@@ -15,6 +15,6 @@ defaultSearchBox(controller, onSubmit) {
 }
 
 searchOnSubmit(String text) {
-  api.postMarketsSearch(text);
+  api.postMarketsSearch(text, api.selectCode.value, "");
   api.searchResult.refresh();
 }

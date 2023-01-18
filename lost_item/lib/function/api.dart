@@ -113,7 +113,8 @@ class Api extends GetxController {
 //   "PageNo": 0,
 //   "SortCondition": "ASC"
 // }
-  Future<void> postMarketsSearch(String search) async {
+  Future<void> postMarketsSearch(
+      String search, int categoryCode, String itemGrade) async {
     var headers = {
       'accept': 'application/json',
       'authorization': 'Bearer ${Secret.devApiKey}',
@@ -124,8 +125,9 @@ class Api extends GetxController {
       Uri.parse(Env.marketSearch),
       headers: headers,
       body: json.encode({
-        "CategoryCode": selectCode.value,
+        "CategoryCode": categoryCode,
         "ItemName": search,
+        "ItemGrade": itemGrade,
       }),
     );
 

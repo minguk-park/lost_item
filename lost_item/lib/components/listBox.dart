@@ -62,7 +62,8 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
                 // Functions().createItemInfo(11, "aaa", 22, "bbb", "ccc");
               },
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
                 // child: Icon(
                 //   Icons.star_border,
                 //   color: Color.fromARGB(75, 0, 0, 0),

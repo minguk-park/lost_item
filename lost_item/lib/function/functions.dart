@@ -37,6 +37,7 @@ class Functions extends GetxController {
       "itemGrade": itemGrade,
       "itemName": itemName,
     };
-    print(itemsInfo);
+
+    return itemsInfo;
   }
 }

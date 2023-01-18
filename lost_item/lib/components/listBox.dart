@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lost_item/function/functions.dart';
 
 defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
-    double curPrice) {
+    double curPrice, Map createdBookmarkInfo) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
     child: Container(
@@ -59,7 +59,7 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
             InkWell(
               onTap: () {
                 print('tap bookmark Icon');
-                // Functions().createItemInfo(11, "aaa", 22, "bbb", "ccc");
+                print(createdBookmarkInfo);
               },
               child: Padding(
                 padding:

@@ -84,7 +84,7 @@ class Search extends StatelessWidget {
                             : api.itemsList.length,
                         (index) {
                           var itemMap = api.itemsList[index];
-                          Functions().createItemInfo(
+                          var createdBookmarkInfo = Functions().createItemInfo(
                             api.selectCode.value,
                             itemMap.grade,
                             itemMap.name,
@@ -95,6 +95,7 @@ class Search extends StatelessWidget {
                             itemMap.yDayAvgPrice,
                             itemMap.recentPrice,
                             itemMap.currentMinPrice,
+                            createdBookmarkInfo,
                           );
                         },
                       ),

@@ -57,9 +57,10 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
               ],
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
                 print('tap bookmark Icon');
                 print(createdBookmarkInfo);
+                // await Functions().createBookMark(createdBookmarkInfo);
               },
               child: Padding(
                 padding:

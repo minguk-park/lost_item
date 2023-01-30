@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lost_item/function/functions.dart';
 
 defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
     double curPrice, Map createdBookmarkInfo) {
+  final func = Functions();
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
     child: Container(
@@ -59,8 +61,12 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
             InkWell(
               onTap: () async {
                 print('tap bookmark Icon');
-                print(createdBookmarkInfo);
-                // await Functions().createBookMark(createdBookmarkInfo);
+                // print(createdBookmarkInfo);
+                if (await func.isBookMark(createdBookmarkInfo)) {
+                  await func.deleteBookmark(createdBookmarkInfo);
+                } else {
+                  await func.createBookMark(createdBookmarkInfo);
+                }
               },
               child: Padding(
                 padding:

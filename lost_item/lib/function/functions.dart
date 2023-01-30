@@ -6,7 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/function/api.dart';
 
-class Functions extends GetxController {
+class Functions {
   //select dialog
   selectDialog(index) {
     final api = Get.put(Api());
@@ -24,7 +24,7 @@ class Functions extends GetxController {
     await storage.write(key: 'bookmark', value: jsonEncode(emptyList));
   }
 
-  isBookMark(Map bookmarkInfo) async {
+  Future<bool> isBookMark(Map bookmarkInfo) async {
     const storage = FlutterSecureStorage();
     String? stringOfItems = await storage.read(key: 'bookmark');
     if (stringOfItems == null) {
@@ -32,7 +32,6 @@ class Functions extends GetxController {
       stringOfItems = await storage.read(key: 'bookmark');
     }
     List<dynamic> listOfItems = jsonDecode(stringOfItems!);
-
     for (var element in listOfItems) {
       if (mapEquals(element, bookmarkInfo)) return true;
     }
@@ -48,6 +47,7 @@ class Functions extends GetxController {
       stringOfItems = await storage.read(key: 'bookmark');
     }
     List<dynamic> listOfItems = jsonDecode(stringOfItems!);
+    listOfItems.add(createdBookmarkInfo);
 
     await storage.write(key: 'bookmark', value: jsonEncode(listOfItems));
 

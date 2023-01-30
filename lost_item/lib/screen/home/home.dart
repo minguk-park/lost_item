@@ -5,11 +5,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/Screen/search/search.dart';
 import 'package:lost_item/function/api.dart';
+import 'package:lost_item/function/functions.dart';
 import 'package:lost_item/models/marketsModels/marketsOption/marketsCategories.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
   final api = Get.put(Api());
+  final func = Get.put(Functions());
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class Home extends StatelessWidget {
             onTap: () async {
               await api.getMarketsOption();
               api.initValue();
+              await func.takeBookMark();
               Get.to(() => Search());
             },
             child: const Padding(

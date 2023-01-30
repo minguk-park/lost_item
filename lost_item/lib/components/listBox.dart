@@ -5,7 +5,8 @@ import 'package:lost_item/function/functions.dart';
 
 defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
     double curPrice, Map createdBookmarkInfo) {
-  final func = Functions();
+  final func = Get.put(Functions());
+
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
     child: Container(
@@ -61,32 +62,50 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
             InkWell(
               onTap: () async {
                 print('tap bookmark Icon');
-                // print(createdBookmarkInfo);
                 if (await func.isBookMark(createdBookmarkInfo)) {
                   await func.deleteBookmark(createdBookmarkInfo);
                 } else {
                   await func.createBookMark(createdBookmarkInfo);
                 }
               },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
-                // child: Icon(
-                //   Icons.star_border,
-                //   color: Color.fromARGB(75, 0, 0, 0),
-                // ),
-                child: Stack(
-                  children: const [
-                    Icon(
-                      Icons.star,
-                      color: Color.fromARGB(255, 242, 192, 44),
-                    ),
-                    Icon(
-                      Icons.star_border,
-                      color: Color.fromARGB(255, 200, 150, 20),
-                    ),
-                  ],
-                ),
+              child: GetBuilder<Functions>(
+                builder: (context) {
+                  print('func.bookMarkList: ' + func.bookMarkList.toString());
+                  print(
+                      'createdBookmarkInfo: ' + createdBookmarkInfo.toString());
+                  print('func.bookMarkList.contains(createdBookmarkInfo): ' +
+                      func.bookMarkList
+                          .contains(createdBookmarkInfo.toString())
+                          .toString());
+                  if (func.bookMarkList
+                      .contains(createdBookmarkInfo.toString())) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 15.0),
+                      child: Stack(
+                        children: const [
+                          Icon(
+                            Icons.star,
+                            color: Color.fromARGB(255, 242, 192, 44),
+                          ),
+                          Icon(
+                            Icons.star_border,
+                            color: Color.fromARGB(255, 200, 150, 20),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                      child: Icon(
+                        Icons.star_border,
+                        color: Color.fromARGB(75, 0, 0, 0),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ],

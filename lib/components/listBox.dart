@@ -70,13 +70,6 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
               },
               child: GetBuilder<Functions>(
                 builder: (context) {
-                  print('func.bookMarkList: ' + func.bookMarkList.toString());
-                  print(
-                      'createdBookmarkInfo: ' + createdBookmarkInfo.toString());
-                  print('func.bookMarkList.contains(createdBookmarkInfo): ' +
-                      func.bookMarkList
-                          .contains(createdBookmarkInfo.toString())
-                          .toString());
                   if (func.bookMarkList
                       .contains(createdBookmarkInfo.toString())) {
                     return Padding(

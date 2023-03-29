@@ -1,0 +1,18 @@
+{
+    "PageNo": 0,
+    "PageSize": 0,
+    "TotalCount": 0,
+    "Items": [
+        {
+            "Id": 0,
+            "Name": "string",
+            "Grade": "string",
+            "Icon": "string",
+            "BundleCount": 0,
+            "TradeRemainCount": 0,
+            "YDayAvgPrice": 0,
+            "RecentPrice": 0,
+            "CurrentMinPrice": 0
+        }
+    ]
+}

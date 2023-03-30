@@ -95,6 +95,7 @@ class Search extends StatelessWidget {
                             itemMap.yDayAvgPrice,
                             itemMap.recentPrice,
                             itemMap.currentMinPrice,
+                            itemMap.tradeRemainCount,
                             createdBookmarkInfo,
                           );
                         },

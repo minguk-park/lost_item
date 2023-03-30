@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:lost_item/function/functions.dart';
 
 defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
-    double curPrice, Map createdBookmarkInfo) {
+    double curPrice, int? tradeRemainCount, Map createdBookmarkInfo) {
   final func = Get.put(Functions());
 
   return Padding(
@@ -55,6 +55,14 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
                     Text(
                       '현재 최저가: $curPrice',
                     ),
+                    () {
+                      if (tradeRemainCount != null) {
+                        return Text(
+                          '남은 거래 횟수: $tradeRemainCount',
+                        );
+                      }
+                      return Container();
+                    }()
                   ],
                 ),
               ],

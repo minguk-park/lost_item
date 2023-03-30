@@ -145,6 +145,8 @@ class Api extends GetxController {
         }
       }
       searchResult.value?.items?.forEach((element) {
+        print("tradeRemainCount:" + element.tradeRemainCount.toString());
+        
         itemsList.add(element);
       });
       searchWord = search;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:lost_item/function/functions.dart';
 
 import 'Screen/home/Home.dart';
 
@@ -39,6 +40,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    
+    Functions().takeBookMark();
+
     return GetMaterialApp(
       theme: ThemeData.light()
           .copyWith(scaffoldBackgroundColor: const Color(0xFFDBDBDB)),

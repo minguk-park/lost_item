@@ -20,35 +20,35 @@ class Functions extends GetxController {
   }
 
   //bookmark
-  initBookMark() async {
-    const storage = FlutterSecureStorage();
-    List<String> emptyList = [];
-    await storage.write(key: 'bookmark', value: jsonEncode(emptyList));
+  initBookMark(storage) async {
+    String? stringOfItems = await storage.read(key: 'bookmark');
+    if (stringOfItems == null) {
+      const storage = FlutterSecureStorage();
+      List<String> emptyList = [];
+      await storage.write(key: 'bookmark', value: jsonEncode(emptyList));
+      stringOfItems = await storage.read(key: 'bookmark');
+    }
+    // List<dynamic> listOfItems = jsonDecode(stringOfItems!);
+    return jsonDecode(stringOfItems!);
   }
 
   takeBookMark() async {
+    print('takeBookMark');
     const storage = FlutterSecureStorage();
-    String? stringOfItems = await storage.read(key: 'bookmark');
-    if (stringOfItems == null) {
-      initBookMark();
-      stringOfItems = await storage.read(key: 'bookmark');
-    }
-    List<dynamic> listOfItems = jsonDecode(stringOfItems!);
+
+    List<dynamic> listOfItems = await initBookMark(storage);
     bookMarkList.clear();
     listOfItems.forEach((element) {
       bookMarkList.add(element.toString());
     });
-    // bookMarkList.value = List.from(listOfItems);
+
+    print(bookMarkList);
   }
 
   Future<bool> isBookMark(Map bookmarkInfo) async {
     const storage = FlutterSecureStorage();
-    String? stringOfItems = await storage.read(key: 'bookmark');
-    if (stringOfItems == null) {
-      initBookMark();
-      stringOfItems = await storage.read(key: 'bookmark');
-    }
-    List<dynamic> listOfItems = jsonDecode(stringOfItems!);
+
+    List<dynamic> listOfItems = await initBookMark(storage);
     for (var element in listOfItems) {
       if (mapEquals(element, bookmarkInfo)) return true;
     }
@@ -58,15 +58,13 @@ class Functions extends GetxController {
 
   createBookMark(Map createdBookmarkInfo) async {
     print('createBookMark');
+
     const storage = FlutterSecureStorage();
-    String? stringOfItems = await storage.read(key: 'bookmark');
-    if (stringOfItems == null) {
-      initBookMark();
-      stringOfItems = await storage.read(key: 'bookmark');
-    }
-    List<dynamic> listOfItems = jsonDecode(stringOfItems!);
+    List<dynamic> listOfItems = await initBookMark(storage);
     listOfItems.add(createdBookmarkInfo);
     bookMarkList.add(createdBookmarkInfo.toString());
+
+    // print(jsonEncode(listOfItems));
 
     await storage.write(key: 'bookmark', value: jsonEncode(listOfItems));
     update();
@@ -74,14 +72,9 @@ class Functions extends GetxController {
 
   deleteBookmark(Map bookmarkInfo) async {
     print('deleteBookmark');
-    const storage = FlutterSecureStorage();
-    String? stringOfItems = await storage.read(key: 'bookmark');
-    if (stringOfItems == null) {
-      initBookMark();
-      stringOfItems = await storage.read(key: 'bookmark');
-    }
-    List<dynamic> listOfItems = jsonDecode(stringOfItems!);
 
+    const storage = FlutterSecureStorage();
+    List<dynamic> listOfItems = await initBookMark(storage);
     for (var element in listOfItems) {
       if (mapEquals(element, bookmarkInfo)) {
         listOfItems.remove(element);
@@ -90,6 +83,8 @@ class Functions extends GetxController {
         break;
       }
     }
+
+    // print(jsonEncode(listOfItems));
 
     await storage.write(key: 'bookmark', value: jsonEncode(listOfItems));
   }

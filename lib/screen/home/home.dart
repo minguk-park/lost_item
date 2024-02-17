@@ -22,19 +22,6 @@ class Home extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.blue,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        // leading: InkWell(
-        //   splashColor: Colors.transparent,
-        //   highlightColor: Colors.transparent,
-        //   // onTap: () {
-        //   //   exitDialog();
-        //   // },
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(
-        //       horizontal: 15.0,
-        //     ),
-        //     child: Icon(Icons.search),
-        //   ),
-        // ),
         actions: [
           InkWell(
             splashColor: Colors.transparent,

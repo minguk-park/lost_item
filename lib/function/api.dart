@@ -85,16 +85,9 @@ class Api extends GetxController {
 
       selectCode.value = itemsCode[selectCodeName];
 
-      // print(itemsCode);
-      // print(itemsCodeName);
     } else {
-      // print(response.reasonPhrase);
       switch (response.statusCode) {
         case 401:
-        // Fluttertoast.showToast(msg: '잘못된 회원정보입니다. 다시 로그인해주세요.');
-        // final authController = Get.put(AuthGetX());
-        // authController.authClear();
-        // break;
         default:
           print('getMarketsOption: 알 수 없는 오류');
           break;
@@ -102,17 +95,6 @@ class Api extends GetxController {
     }
   }
 
-// post body
-// {
-//   "Sort": "GRADE",
-//   "CategoryCode": 0,           필수
-//   "CharacterClass": "string",
-//   "ItemTier": 0,
-//   "ItemGrade": "string",
-//   "ItemName": "string",
-//   "PageNo": 0,
-//   "SortCondition": "ASC"
-// }
   Future<void> postMarketsSearch(
       String search, int categoryCode, String itemGrade) async {
     var headers = {
@@ -149,17 +131,11 @@ class Api extends GetxController {
       });
       searchWord = search;
 
-      // print(itemsList[0].name);
-
       update();
     } else {
       print(response.statusCode);
       switch (response.statusCode) {
         case 401:
-        // Fluttertoast.showToast(msg: '잘못된 회원정보입니다. 다시 로그인해주세요.');
-        // final authController = Get.put(AuthGetX());
-        // authController.authClear();
-        // break;
         default:
           print('postMarketsSearch: 알 수 없는 오류');
           break;
@@ -190,9 +166,6 @@ class Api extends GetxController {
       var searchResultMap = jsonDecode(response.body);
       searchResult = SearchResult.fromJson(searchResultMap).obs;
 
-      // if (itemsTotalCount > requestPerCategory) {
-      //   itemsTotalCount = requestPerCategory;
-      // }
       searchResult.value?.items?.forEach((element) {
         itemsList.add(element);
       });
@@ -202,10 +175,6 @@ class Api extends GetxController {
       print(response.statusCode);
       switch (response.statusCode) {
         case 401:
-        // Fluttertoast.showToast(msg: '잘못된 회원정보입니다. 다시 로그인해주세요.');
-        // final authController = Get.put(AuthGetX());
-        // authController.authClear();
-        // break;
         default:
           print('postMarketsSearch: 알 수 없는 오류');
           break;

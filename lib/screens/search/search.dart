@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/components/listBox.dart';
-import 'package:lost_item/components/searchBox.dart';
-import 'package:lost_item/components/seletDialog.dart';
+import 'package:lost_item/widgets/listBox.dart';
+import 'package:lost_item/widgets/searchBox.dart';
+import 'package:lost_item/widgets/seletDialog.dart';
 import 'package:lost_item/utils/api.dart';
 import 'package:lost_item/utils/functions.dart';
 

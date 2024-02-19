@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
   final marketSearch = Get.put(MarketSearch());
   final func = Get.put(BookMark());
-  //test commit
+  //test commits
   @override
   Widget build(BuildContext context) {
     return Scaffold(

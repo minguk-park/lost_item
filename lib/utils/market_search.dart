@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect.dart';
+// import 'package:get/get_connect.dart';
 import 'package:lost_item/secret.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,21 +16,26 @@ class MarketSearch extends GetxController{
 
   late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
+  TextEditingController searchController = TextEditingController();
   final ScrollController itemsListScrollController = ScrollController();
 
   Map<String, dynamic> itemsCode = <String, dynamic>{};
   List itemsCodeName = [];
   var itemsPageSize = 10;
 
-  //init
-  var searchWord = '';
+  final searchData = <String, dynamic>{
+    'searchWord': '',
+    'selectCodeName': "강화 재료",
+    'selectCode' : 0,
+  }.obs;
+
   var itemsList = [].obs;
   var itemsTotalCount = 0;
   var totalPageNo = 0;
   var curPage = 1.obs;
 
-  var selectCodeName = "강화 재료".obs;
-  var selectCode = 0.obs; //default = 강화 재료
+  // var selectCodeName = "강화 재료".obs;
+  // var selectCode = 0.obs; //default = 강화 재료
 
   @override
   void onInit() {
@@ -55,7 +60,7 @@ class MarketSearch extends GetxController{
   }
 
   initValue() {
-    searchWord = '';
+    searchData['searchWord'] = '';
     itemsList.value = [];
     itemsTotalCount = 0;
     totalPageNo = 0;
@@ -67,8 +72,8 @@ class MarketSearch extends GetxController{
   selectDialog(index) {
     initValue();
     String selectName = itemsCodeName[index];
-    selectCodeName.value = selectName;
-    selectCode.value = itemsCode[selectName];
+    searchData['selectCodeName'] = selectName;
+    searchData['selectCode'] = itemsCode[selectName];
     return;
   }
 
@@ -99,7 +104,7 @@ class MarketSearch extends GetxController{
         itemsCodeName.add(element.codeName!);
       });
 
-      selectCode.value = itemsCode[selectCodeName];
+      searchData['selectCode'] = itemsCode[searchData['selectCodeName']];
 
     } else {
       switch (response.statusCode) {
@@ -145,7 +150,7 @@ class MarketSearch extends GetxController{
       searchResult.value?.items?.forEach((element) {
         itemsList.add(element);
       });
-      searchWord = search;
+      searchData['searchWord'] = search;
 
       update();
     } else {
@@ -172,8 +177,8 @@ class MarketSearch extends GetxController{
       Uri.parse(Env.marketSearch),
       headers: headers,
       body: json.encode({
-        "CategoryCode": selectCode.value,
-        "ItemName": searchWord,
+        "CategoryCode": searchData['selectCode'],
+        "ItemName": searchData['searchWord'],
         "PageNo": curPage.value,
       }),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/utils/market_search.dart';
 
-final api = Get.put(MarketSearch());
+final marketSearch = Get.put(MarketSearch());
 
 defaultSearchBox(controller, onSubmit) {
   return Flexible(
@@ -15,6 +15,6 @@ defaultSearchBox(controller, onSubmit) {
 }
 
 searchOnSubmit(String text) {
-  api.postMarketsSearch(text, api.selectCode.value, "");
-  api.searchResult.refresh();
+  marketSearch.postMarketsSearch(text, marketSearch.searchData['selectCode'], "");
+  marketSearch.searchResult.refresh();
 }

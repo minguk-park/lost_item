@@ -52,20 +52,20 @@ class Search extends StatelessWidget {
                               marketSearch.selectDialog, buildContext);
                         },
                         child: Obx(
-                          () => Container(
+                          () => SizedBox(
                             width: 70,
                             child: Center(
-                              child: Text(marketSearch.selectCodeName.value),
+                              child: Text(marketSearch.searchData['selectCodeName']),
                             ),
                           ),
                         ),
                       ),
-                      defaultSearchBox(BookMark().searchController, searchOnSubmit),
+                      defaultSearchBox(marketSearch.searchController, searchOnSubmit),
                       InkWell(
                         onTap: () async {
                           print('tap icon');
-                          await marketSearch.postMarketsSearch(BookMark().searchController.text,
-                              marketSearch.selectCode.value, "");
+                          await marketSearch.postMarketsSearch(marketSearch.searchController.text,
+                              marketSearch.searchData['selectCode'], "");
                         },
                         child: const Icon(Icons.search),
                       ),
@@ -85,7 +85,7 @@ class Search extends StatelessWidget {
                         (index) {
                           var itemMap = marketSearch.itemsList[index];
                           var createdBookmarkInfo = BookMark().createItemInfo(
-                            marketSearch.selectCode.value,
+                            marketSearch.searchData['selectCode'],
                             itemMap.grade,
                             itemMap.name,
                           );

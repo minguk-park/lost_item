@@ -14,20 +14,21 @@ import '../env.dart';
 class MarketSearch extends GetxController{
   // final GetConnect connect = Get.find<GetConnect>();
 
-  late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
   TextEditingController searchController = TextEditingController();
   final ScrollController itemsListScrollController = ScrollController();
 
+  late Markets marketOptions;
   Map<String, dynamic> itemsCode = <String, dynamic>{};
   List itemsCodeName = [];
-  var itemsPageSize = 10;
 
   final searchData = <String, dynamic>{
     'searchWord': '',
     'selectCodeName': "강화 재료",
     'selectCode' : 0,
   }.obs;
+
+  var itemsPageSize = 10;
 
   var itemsList = [].obs;
   var itemsTotalCount = 0;
@@ -96,10 +97,10 @@ class MarketSearch extends GetxController{
       var marketOptionsMap = jsonDecode(responseData);
       marketOptions = Markets.fromJson(marketOptionsMap);
 
-      marketOptions.categories?.forEach((element) {
-        itemsCode.addEntries({element.codeName!: element.code}.entries);
-        itemsCodeName.add(element.codeName!);
-      });
+      for (var element in marketOptions.categories) {
+        itemsCode.addEntries({element.codeName: element.code}.entries);
+        itemsCodeName.add(element.codeName);
+      }
 
       searchData['selectCode'] = itemsCode[searchData['selectCodeName']];
 

@@ -9,13 +9,13 @@ class MarketsCategories {
   MarketsCategories(this.subs, this.code, this.codeName);
 
   @JsonKey(name: 'Subs')
-  List<MarketsCategoriesSubs>? subs;
+  List<MarketsCategoriesSubs> subs;
 
   @JsonKey(name: 'Code')
-  int? code;
+  int code;
 
   @JsonKey(name: 'CodeName')
-  String? codeName;
+  String codeName;
 
   factory MarketsCategories.fromJson(Map<String, dynamic> json) =>
       _$MarketsCategoriesFromJson(json);

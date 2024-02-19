@@ -7,10 +7,10 @@ class MarketsCategoriesSubs {
   MarketsCategoriesSubs(this.code, this.codeName);
 
   @JsonKey(name: 'Code')
-  int? code;
+  int code;
 
   @JsonKey(name: 'CodeName')
-  String? codeName;
+  String codeName;
 
   factory MarketsCategoriesSubs.fromJson(Map<String, dynamic> json) =>
       _$MarketsCategoriesSubsFromJson(json);

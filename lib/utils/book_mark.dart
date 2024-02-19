@@ -6,7 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/utils/market_search.dart';
 
-class Functions extends GetxController {
+class BookMark extends GetxController {
   TextEditingController searchController = TextEditingController();
   RxList<dynamic> bookMarkList = [].obs;
 

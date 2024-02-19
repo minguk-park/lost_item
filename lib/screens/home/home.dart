@@ -5,13 +5,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/screens/search/search.dart';
 import 'package:lost_item/utils/market_search.dart';
-import 'package:lost_item/utils/functions.dart';
+import 'package:lost_item/utils/book_mark.dart';
 // import 'package:lost_item/models/marketsModels/marketsOption/marketsCategories.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
   final marketSearch = Get.put(MarketSearch());
-  final func = Get.put(Functions());
+  final func = Get.put(BookMark());
 
   @override
   Widget build(BuildContext context) {

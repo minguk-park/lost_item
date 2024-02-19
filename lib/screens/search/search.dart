@@ -7,7 +7,7 @@ import 'package:lost_item/widgets/list_box.dart';
 import 'package:lost_item/widgets/search_box.dart';
 import 'package:lost_item/widgets/selet_dialog.dart';
 import 'package:lost_item/utils/market_search.dart';
-import 'package:lost_item/utils/functions.dart';
+import 'package:lost_item/utils/book_mark.dart';
 
 class Search extends StatelessWidget {
   Search({Key? key}) : super(key: key);
@@ -49,7 +49,7 @@ class Search extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           defaultSelectDialog(marketSearch.itemsCodeName,
-                              Functions().selectDialog, buildContext);
+                              BookMark().selectDialog, buildContext);
                         },
                         child: Obx(
                           () => Container(
@@ -60,11 +60,11 @@ class Search extends StatelessWidget {
                           ),
                         ),
                       ),
-                      defaultSearchBox(Functions().searchController, searchOnSubmit),
+                      defaultSearchBox(BookMark().searchController, searchOnSubmit),
                       InkWell(
                         onTap: () async {
                           print('tap icon');
-                          await marketSearch.postMarketsSearch(Functions().searchController.text,
+                          await marketSearch.postMarketsSearch(BookMark().searchController.text,
                               marketSearch.selectCode.value, "");
                         },
                         child: const Icon(Icons.search),
@@ -84,7 +84,7 @@ class Search extends StatelessWidget {
                             : marketSearch.itemsList.length,
                         (index) {
                           var itemMap = marketSearch.itemsList[index];
-                          var createdBookmarkInfo = Functions().createItemInfo(
+                          var createdBookmarkInfo = BookMark().createItemInfo(
                             marketSearch.selectCode.value,
                             itemMap.grade,
                             itemMap.name,

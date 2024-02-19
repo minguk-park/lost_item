@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/utils/functions.dart';
+import 'package:lost_item/utils/book_mark.dart';
 
 defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
     double curPrice, int? tradeRemainCount, Map createdBookmarkInfo) {
-  final func = Get.put(Functions());
+  final func = Get.put(BookMark());
 
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
@@ -76,15 +76,15 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
                   await func.createBookMark(createdBookmarkInfo);
                 }
               },
-              child: GetBuilder<Functions>(
+              child: GetBuilder<BookMark>(
                 builder: (context) {
                   if (func.bookMarkList
                       .contains(createdBookmarkInfo.toString())) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 15.0),
                       child: Stack(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.star,
                             color: Color.fromARGB(255, 242, 192, 44),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect.dart';
 import 'package:lost_item/secret.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +11,7 @@ import 'package:lost_item/models/markets_models/markets_search/search_result.dar
 
 import '../env.dart';
 
-class MarketSearch extends GetxController {
+class MarketSearch extends GetxController{
   late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
   final ScrollController itemsListScrollController = ScrollController();
@@ -31,6 +32,13 @@ class MarketSearch extends GetxController {
 
   @override
   void onInit() {
+    // allowAutoSignedCert = true;
+    // httpClient.addRequestModifier<void>((request) {
+    //   request.headers['Accept'] = 'application/json';
+    //   request.headers['authorization'] = 'Bearer ${Secret.devApiKey}';
+    //   return request;
+    // });
+
     super.onInit();
     itemsListScrollEvent();
   }

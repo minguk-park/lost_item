@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/utils/functions.dart';
+import 'package:lost_item/utils/book_mark.dart';
 
 import 'screens/home/Home.dart';
 
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     
-    Functions().takeBookMark();
+    BookMark().takeBookMark();
 
     return GetMaterialApp(
       theme: ThemeData.light()

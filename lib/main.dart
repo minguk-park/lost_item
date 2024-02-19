@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/function/functions.dart';
 
-import 'Screen/home/Home.dart';
+import 'screens/home/Home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

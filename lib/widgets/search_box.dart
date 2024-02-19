@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/utils/api.dart';
+import 'package:lost_item/utils/market_search.dart';
 
-final api = Get.put(Api());
+final api = Get.put(MarketSearch());
 
 defaultSearchBox(controller, onSubmit) {
   return Flexible(

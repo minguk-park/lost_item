@@ -10,7 +10,7 @@ import 'package:lost_item/models/markets_models/markets_search/search_result.dar
 
 import '../env.dart';
 
-class Api extends GetxController {
+class MarketSearch extends GetxController {
   late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
   final ScrollController itemsListScrollController = ScrollController();

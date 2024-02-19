@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 import 'package:lost_item/widgets/list_box.dart';
 import 'package:lost_item/widgets/search_box.dart';
 import 'package:lost_item/widgets/selet_dialog.dart';
-import 'package:lost_item/utils/api.dart';
+import 'package:lost_item/utils/market_search.dart';
 import 'package:lost_item/utils/functions.dart';
 
 class Search extends StatelessWidget {
   Search({Key? key}) : super(key: key);
-  final api = Get.put(Api());
+  final marketSearch = Get.put(MarketSearch());
 
   @override
   Widget build(BuildContext buildContext) {
@@ -35,7 +35,7 @@ class Search extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: GetBuilder<Api>(
+      body: GetBuilder<MarketSearch>(
         builder: (context) {
           return SafeArea(
             child: Column(
@@ -48,14 +48,14 @@ class Search extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          defaultSelectDialog(api.itemsCodeName,
+                          defaultSelectDialog(marketSearch.itemsCodeName,
                               Functions().selectDialog, buildContext);
                         },
                         child: Obx(
                           () => Container(
                             width: 70,
                             child: Center(
-                              child: Text(api.selectCodeName.value),
+                              child: Text(marketSearch.selectCodeName.value),
                             ),
                           ),
                         ),
@@ -64,8 +64,8 @@ class Search extends StatelessWidget {
                       InkWell(
                         onTap: () async {
                           print('tap icon');
-                          await api.postMarketsSearch(Functions().searchController.text,
-                              api.selectCode.value, "");
+                          await marketSearch.postMarketsSearch(Functions().searchController.text,
+                              marketSearch.selectCode.value, "");
                         },
                         child: const Icon(Icons.search),
                       ),
@@ -74,18 +74,18 @@ class Search extends StatelessWidget {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
-                    controller: api.itemsListScrollController,
+                    controller: marketSearch.itemsListScrollController,
                     scrollDirection: Axis.vertical,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: List.generate(
-                        api.searchResult.value == null
+                        marketSearch.searchResult.value == null
                             ? 0
-                            : api.itemsList.length,
+                            : marketSearch.itemsList.length,
                         (index) {
-                          var itemMap = api.itemsList[index];
+                          var itemMap = marketSearch.itemsList[index];
                           var createdBookmarkInfo = Functions().createItemInfo(
-                            api.selectCode.value,
+                            marketSearch.selectCode.value,
                             itemMap.grade,
                             itemMap.name,
                           );

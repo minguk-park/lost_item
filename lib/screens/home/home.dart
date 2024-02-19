@@ -4,13 +4,13 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/screens/search/search.dart';
-import 'package:lost_item/utils/api.dart';
+import 'package:lost_item/utils/market_search.dart';
 import 'package:lost_item/utils/functions.dart';
 // import 'package:lost_item/models/marketsModels/marketsOption/marketsCategories.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
-  final api = Get.put(Api());
+  final marketSearch = Get.put(MarketSearch());
   final func = Get.put(Functions());
 
   @override
@@ -27,8 +27,8 @@ class Home extends StatelessWidget {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              await api.getMarketsOption();
-              api.initValue();
+              await marketSearch.getMarketsOption();
+              marketSearch.initValue();
               await func.takeBookMark();
               Get.to(() => Search());
             },

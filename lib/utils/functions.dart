@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/utils/api.dart';
+import 'package:lost_item/utils/market_search.dart';
 
 class Functions extends GetxController {
   TextEditingController searchController = TextEditingController();
@@ -12,7 +12,7 @@ class Functions extends GetxController {
 
   //select dialog
   selectDialog(index) {
-    final api = Get.put(Api());
+    final api = Get.put(MarketSearch());
     api.initValue();
     String selectName = api.itemsCodeName[index];
     api.selectCodeName.value = selectName;

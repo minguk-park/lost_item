@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lost_item/models/marketsModels/marketsSearch/searchResultItems.dart';
+import 'package:lost_item/models/markets_models/markets_search/search_result_items.dart';
 
-part 'searchResult.g.dart';
+part 'search_result.g.dart';
 
 @JsonSerializable()
 class SearchResult {

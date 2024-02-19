@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:get/get_connect.dart';
 import 'package:lost_item/env.dart';
 import 'package:lost_item/secret.dart';

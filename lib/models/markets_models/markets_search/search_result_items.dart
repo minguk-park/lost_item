@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'searchResultItems.g.dart';
+part 'search_result_items.g.dart';
 
 @JsonSerializable()
 class SearchResultItems {

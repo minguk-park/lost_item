@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/foundation/key.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/widgets/listBox.dart';
-import 'package:lost_item/widgets/searchBox.dart';
-import 'package:lost_item/widgets/seletDialog.dart';
+import 'package:lost_item/widgets/list_box.dart';
+import 'package:lost_item/widgets/search_box.dart';
+import 'package:lost_item/widgets/selet_dialog.dart';
 import 'package:lost_item/utils/api.dart';
 import 'package:lost_item/utils/functions.dart';
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'marketsCategories.dart';
+part of 'markets_categories.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

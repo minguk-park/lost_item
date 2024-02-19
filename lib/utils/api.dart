@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/models/marketsModels/marketsSearch/searchResult.dart';
-import 'package:lost_item/models/marketsModels/marketsSearch/searchResultItems.dart';
 import 'package:lost_item/secret.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:lost_item/models/markets_models/markets_option/markets.dart';
+import 'package:lost_item/models/markets_models/markets_search/search_result.dart';
+
 import '../env.dart';
-import '../models/marketsModels/marketsOption/markets.dart';
 
 class Api extends GetxController {
   late Markets marketOptions;

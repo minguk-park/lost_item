@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'marketsCategories.dart';
+import 'markets_categories.dart';
 
 part 'markets.g.dart';
 

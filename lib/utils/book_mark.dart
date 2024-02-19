@@ -4,21 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/utils/market_search.dart';
 
 class BookMark extends GetxController {
   TextEditingController searchController = TextEditingController();
   RxList<dynamic> bookMarkList = [].obs;
-
-  //select dialog
-  selectDialog(index) {
-    final api = Get.put(MarketSearch());
-    api.initValue();
-    String selectName = api.itemsCodeName[index];
-    api.selectCodeName.value = selectName;
-    api.selectCode.value = api.itemsCode[selectName];
-    return;
-  }
 
   //bookmark
   initBookMark(storage) async {

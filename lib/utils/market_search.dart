@@ -64,6 +64,14 @@ class MarketSearch extends GetxController{
     update();
   }
 
+  selectDialog(index) {
+    initValue();
+    String selectName = itemsCodeName[index];
+    selectCodeName.value = selectName;
+    selectCode.value = itemsCode[selectName];
+    return;
+  }
+
   Future<void> getMarketsOption() async {
     var headers = {
       'Accept': 'application/json',

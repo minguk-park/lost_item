@@ -49,7 +49,7 @@ class Search extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           defaultSelectDialog(marketSearch.itemsCodeName,
-                              BookMark().selectDialog, buildContext);
+                              marketSearch.selectDialog, buildContext);
                         },
                         child: Obx(
                           () => Container(

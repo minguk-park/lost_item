@@ -9,7 +9,6 @@ class BookMark extends GetxController {
   TextEditingController searchController = TextEditingController();
   RxList<dynamic> bookMarkList = [].obs;
 
-  //bookmark
   initBookMark(storage) async {
     String? stringOfItems = await storage.read(key: 'bookmark');
     if (stringOfItems == null) {

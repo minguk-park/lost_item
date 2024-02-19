@@ -12,6 +12,8 @@ import 'package:lost_item/models/markets_models/markets_search/search_result.dar
 import '../env.dart';
 
 class MarketSearch extends GetxController{
+  // final GetConnect connect = Get.find<GetConnect>();
+
   late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
   final ScrollController itemsListScrollController = ScrollController();
@@ -33,7 +35,7 @@ class MarketSearch extends GetxController{
   @override
   void onInit() {
     // allowAutoSignedCert = true;
-    // httpClient.addRequestModifier<void>((request) {
+    // connect.httpClient.addRequestModifier<void>((request) {
     //   request.headers['Accept'] = 'application/json';
     //   request.headers['authorization'] = 'Bearer ${Secret.devApiKey}';
     //   return request;

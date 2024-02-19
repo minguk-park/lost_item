@@ -19,13 +19,11 @@ class MarketSearch extends GetxController{
   final ScrollController itemsListScrollController = ScrollController();
 
   late Markets marketOptions;
-  Map<String, dynamic> itemsCode = <String, dynamic>{};
-  List itemsCodeName = [];
 
   final searchData = <String, dynamic>{
     'searchWord': '',
     'selectCodeName': "강화 재료",
-    'selectCode' : 0,
+    'selectCode' : 50000,
   }.obs;
 
   var itemsPageSize = 10;
@@ -69,9 +67,9 @@ class MarketSearch extends GetxController{
 
   selectDialog(index) {
     initValue();
-    String selectName = itemsCodeName[index];
-    searchData['selectCodeName'] = selectName;
-    searchData['selectCode'] = itemsCode[selectName];
+    var categories = marketOptions.categories;
+    searchData['selectCodeName'] = categories[index].codeName;
+    searchData['selectCode'] = categories[index].code;
     return;
   }
 
@@ -91,18 +89,9 @@ class MarketSearch extends GetxController{
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      itemsCode.clear();
-      itemsCodeName.clear();
       var responseData = await response.stream.bytesToString();
       var marketOptionsMap = jsonDecode(responseData);
       marketOptions = Markets.fromJson(marketOptionsMap);
-
-      for (var element in marketOptions.categories) {
-        itemsCode.addEntries({element.codeName: element.code}.entries);
-        itemsCodeName.add(element.codeName);
-      }
-
-      searchData['selectCode'] = itemsCode[searchData['selectCodeName']];
 
     } else {
       switch (response.statusCode) {

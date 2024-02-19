@@ -48,7 +48,7 @@ class Search extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          defaultSelectDialog(marketSearch.itemsCodeName,
+                          defaultSelectDialog(marketSearch.marketOptions.categories,
                               marketSearch.selectDialog, buildContext);
                         },
                         child: Obx(

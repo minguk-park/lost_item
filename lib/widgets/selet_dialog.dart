@@ -13,9 +13,7 @@ defaultSelectDialog(List list, Function function, context) {
               function(index);
               Navigator.of(context).pop();
             },
-            child: Container(
-              child: Text(list[index]),
-            ),
+            child: Text(list[index].codeName),
           ),
         ),
       ),

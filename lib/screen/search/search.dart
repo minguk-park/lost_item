@@ -60,11 +60,11 @@ class Search extends StatelessWidget {
                           ),
                         ),
                       ),
-                      defaultSearchBox(api.searchController, searchOnSubmit),
+                      defaultSearchBox(Functions().searchController, searchOnSubmit),
                       InkWell(
                         onTap: () async {
                           print('tap icon');
-                          await api.postMarketsSearch(api.searchController.text,
+                          await api.postMarketsSearch(Functions().searchController.text,
                               api.selectCode.value, "");
                         },
                         child: const Icon(Icons.search),

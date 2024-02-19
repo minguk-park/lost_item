@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:lost_item/function/api.dart';
 
 class Functions extends GetxController {
+  TextEditingController searchController = TextEditingController();
   RxList<dynamic> bookMarkList = [].obs;
 
   //select dialog

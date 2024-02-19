@@ -13,12 +13,10 @@ import '../models/marketsModels/marketsOption/markets.dart';
 class Api extends GetxController {
   late Markets marketOptions;
   Rx<SearchResult?> searchResult = null.obs;
-  TextEditingController searchController = TextEditingController();
   final ScrollController itemsListScrollController = ScrollController();
 
   Map<String, dynamic> itemsCode = <String, dynamic>{};
   List itemsCodeName = [];
-  var requestPerCategory = 3;
   var itemsPageSize = 10;
 
   //init

@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:lost_item/components/listBox.dart';
 import 'package:lost_item/components/searchBox.dart';
 import 'package:lost_item/components/seletDialog.dart';
-import 'package:lost_item/function/api.dart';
-import 'package:lost_item/function/functions.dart';
+import 'package:lost_item/utils/api.dart';
+import 'package:lost_item/utils/functions.dart';
 
 class Search extends StatelessWidget {
   Search({Key? key}) : super(key: key);

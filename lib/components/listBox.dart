@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/function/functions.dart';
+import 'package:lost_item/utils/functions.dart';
 
 defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
     double curPrice, int? tradeRemainCount, Map createdBookmarkInfo) {

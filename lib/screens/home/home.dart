@@ -4,8 +4,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/screens/search/search.dart';
-import 'package:lost_item/function/api.dart';
-import 'package:lost_item/function/functions.dart';
+import 'package:lost_item/utils/api.dart';
+import 'package:lost_item/utils/functions.dart';
 // import 'package:lost_item/models/marketsModels/marketsOption/marketsCategories.dart';
 
 class Home extends StatelessWidget {

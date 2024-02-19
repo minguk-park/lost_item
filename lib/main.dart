@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/function/functions.dart';
+import 'package:lost_item/utils/functions.dart';
 
 import 'screens/home/Home.dart';
 

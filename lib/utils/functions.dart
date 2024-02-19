@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/function/api.dart';
+import 'package:lost_item/utils/api.dart';
 
 class Functions extends GetxController {
   TextEditingController searchController = TextEditingController();

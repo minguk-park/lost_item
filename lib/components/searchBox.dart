@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lost_item/function/api.dart';
+import 'package:lost_item/utils/api.dart';
 
 final api = Get.put(Api());
 

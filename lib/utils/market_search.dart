@@ -34,9 +34,6 @@ class MarketSearch extends GetxController{
   var totalPageNo = 0;
   var curPage = 1.obs;
 
-  // var selectCodeName = "강화 재료".obs;
-  // var selectCode = 0.obs; //default = 강화 재료
-
   @override
   void onInit() {
     // allowAutoSignedCert = true;

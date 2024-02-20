@@ -78,8 +78,8 @@ defaultListBox(String imgUrl, String name, double avgPrice, double recentPrice,
               },
               child: GetBuilder<BookMark>(
                 builder: (context) {
-                  if (func.bookMarkList
-                      .contains(createdBookmarkInfo.toString())) {
+                  if (func.bookMarkItemsId
+                      .contains(createdBookmarkInfo['itemCode'])) {
                     return const Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 15.0),

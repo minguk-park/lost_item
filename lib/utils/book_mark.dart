@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 class BookMark extends GetxController {
-  RxList<dynamic> bookMarkList = [].obs;
+  RxList bookMarkItemsId = [].obs;
 
   initBookMark(storage) async {
     String? stringOfItems = await storage.read(key: 'bookmark');
@@ -24,12 +24,13 @@ class BookMark extends GetxController {
     const storage = FlutterSecureStorage();
 
     List<dynamic> listOfItems = await initBookMark(storage);
-    bookMarkList.clear();
-    listOfItems.forEach((element) {
-      bookMarkList.add(element.toString());
-    });
-
-    print(bookMarkList);
+    bookMarkItemsId.clear();
+    for (var element in listOfItems) {
+      bookMarkItemsId.add(element['itemCode']);
+    }
+    
+    print(listOfItems);
+    print(bookMarkItemsId);
   }
 
   Future<bool> isBookMark(Map bookmarkInfo) async {
@@ -49,9 +50,11 @@ class BookMark extends GetxController {
     const storage = FlutterSecureStorage();
     List<dynamic> listOfItems = await initBookMark(storage);
     listOfItems.add(createdBookmarkInfo);
-    bookMarkList.add(createdBookmarkInfo.toString());
+    bookMarkItemsId.add(createdBookmarkInfo['itemCode']);
 
-    // print(jsonEncode(listOfItems));
+
+    print(listOfItems);
+    print(bookMarkItemsId);
 
     await storage.write(key: 'bookmark', value: jsonEncode(listOfItems));
     update();
@@ -65,24 +68,25 @@ class BookMark extends GetxController {
     for (var element in listOfItems) {
       if (mapEquals(element, bookmarkInfo)) {
         listOfItems.remove(element);
-        bookMarkList.remove(bookmarkInfo.toString());
+        bookMarkItemsId.remove(bookmarkInfo['itemCode']);
         update();
         break;
       }
     }
 
-    // print(jsonEncode(listOfItems));
+    print(listOfItems);
+    print(bookMarkItemsId);
 
     await storage.write(key: 'bookmark', value: jsonEncode(listOfItems));
   }
 
-  createItemInfo(int categoryCode, String itemGrade, String itemName) {
+  createItemInfo(int categoryCode, int itemCode, String itemGrade, String itemName) {
     Map<String, dynamic> itemsInfo = {
       "categoryCode": categoryCode,
+      "itemCode" : itemCode,
       "itemGrade": itemGrade,
       "itemName": itemName,
     };
-
     return itemsInfo;
   }
 }

@@ -86,6 +86,7 @@ class Search extends StatelessWidget {
                           var itemMap = marketSearch.itemsList[index];
                           var createdBookmarkInfo = BookMark().createItemInfo(
                             marketSearch.searchData['selectCode'],
+                            itemMap.id,
                             itemMap.grade,
                             itemMap.name,
                           );

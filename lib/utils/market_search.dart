@@ -24,14 +24,15 @@ class MarketSearch extends GetxController{
     'searchWord': '',
     'selectCodeName': "강화 재료",
     'selectCode' : 50000,
+    'curPage' : 1,
   }.obs;
 
+  //pagination
   var itemsPageSize = 10;
+  var totalPageNo = 0;
 
   var itemsList = [].obs;
-  var totalPageNo = 0;
-  var curPage = 1.obs;
-
+  
   @override
   void onInit() {
     // allowAutoSignedCert = true;
@@ -56,9 +57,9 @@ class MarketSearch extends GetxController{
 
   initValue() {
     searchData['searchWord'] = '';
+    searchData['curPage'] = 1;
     itemsList.value = [];
     totalPageNo = 0;
-    curPage.value = 1;
 
     update();
   }
@@ -150,8 +151,8 @@ class MarketSearch extends GetxController{
   }
 
   Future<void> postMarketsSearchPagenation() async {
-    if (totalPageNo < curPage.value) return;
-    curPage = curPage + 1;
+    if (totalPageNo < searchData['curPage']) return;
+    searchData['curPage'] = searchData['curPage'] + 1;
     var headers = {
       'accept': 'application/json',
       'authorization': 'Bearer ${Secret.devApiKey}',
@@ -164,7 +165,7 @@ class MarketSearch extends GetxController{
       body: json.encode({
         "CategoryCode": searchData['selectCode'],
         "ItemName": searchData['searchWord'],
-        "PageNo": curPage.value,
+        "PageNo": searchData['curPage'],
       }),
     );
 

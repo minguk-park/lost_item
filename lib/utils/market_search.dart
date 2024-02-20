@@ -32,7 +32,7 @@ class MarketSearch extends GetxController{
   var totalPageNo = 0;
 
   var itemsList = [].obs;
-  
+
   @override
   void onInit() {
     // allowAutoSignedCert = true;
@@ -133,7 +133,7 @@ class MarketSearch extends GetxController{
           totalPageNo = totalPageNo + 1;
         }
       }
-      searchResult.value?.items?.forEach((element) {
+      searchResult.value?.items.forEach((element) {
         itemsList.add(element);
       });
       searchData['searchWord'] = search;
@@ -173,7 +173,7 @@ class MarketSearch extends GetxController{
       var searchResultMap = jsonDecode(response.body);
       searchResult = SearchResult.fromJson(searchResultMap).obs;
 
-      searchResult.value?.items?.forEach((element) {
+      searchResult.value?.items.forEach((element) {
         itemsList.add(element);
       });
 

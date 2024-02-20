@@ -5,12 +5,21 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 class BookMark extends GetxController {
+  
+  static const storage = FlutterSecureStorage();
+  List<dynamic> listOfItems = [].obs;
+
   RxList bookMarkItemsId = [].obs;
 
-  initBookMark(storage) async {
+  @override
+  Future<void> onInit() async {
+    listOfItems = await initBookMark();
+    super.onInit();
+  }
+
+  initBookMark() async {
     String? stringOfItems = await storage.read(key: 'bookmark');
     if (stringOfItems == null) {
-      const storage = FlutterSecureStorage();
       List<String> emptyList = [];
       await storage.write(key: 'bookmark', value: jsonEncode(emptyList));
       stringOfItems = await storage.read(key: 'bookmark');
@@ -21,9 +30,6 @@ class BookMark extends GetxController {
 
   takeBookMark() async {
     print('takeBookMark');
-    const storage = FlutterSecureStorage();
-
-    List<dynamic> listOfItems = await initBookMark(storage);
     bookMarkItemsId.clear();
     for (var element in listOfItems) {
       bookMarkItemsId.add(element['itemCode']);
@@ -34,9 +40,6 @@ class BookMark extends GetxController {
   }
 
   Future<bool> isBookMark(Map bookmarkInfo) async {
-    const storage = FlutterSecureStorage();
-
-    List<dynamic> listOfItems = await initBookMark(storage);
     for (var element in listOfItems) {
       if (mapEquals(element, bookmarkInfo)) return true;
     }
@@ -47,8 +50,6 @@ class BookMark extends GetxController {
   createBookMark(Map createdBookmarkInfo) async {
     print('createBookMark');
 
-    const storage = FlutterSecureStorage();
-    List<dynamic> listOfItems = await initBookMark(storage);
     listOfItems.add(createdBookmarkInfo);
     bookMarkItemsId.add(createdBookmarkInfo['itemCode']);
 
@@ -63,8 +64,6 @@ class BookMark extends GetxController {
   deleteBookmark(Map bookmarkInfo) async {
     print('deleteBookmark');
 
-    const storage = FlutterSecureStorage();
-    List<dynamic> listOfItems = await initBookMark(storage);
     for (var element in listOfItems) {
       if (mapEquals(element, bookmarkInfo)) {
         listOfItems.remove(element);
@@ -78,6 +77,10 @@ class BookMark extends GetxController {
     print(bookMarkItemsId);
 
     await storage.write(key: 'bookmark', value: jsonEncode(listOfItems));
+  }
+
+  refreshBookMark() async{
+
   }
 
   createItemInfo(int categoryCode, int itemCode, String itemGrade, String itemName) {

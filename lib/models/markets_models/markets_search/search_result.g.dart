@@ -7,11 +7,11 @@ part of 'search_result.dart';
 // **************************************************************************
 
 SearchResult _$SearchResultFromJson(Map<String, dynamic> json) => SearchResult(
-      json['PageNo'] as int?,
-      json['PageSize'] as int?,
-      json['TotalCount'] as int?,
-      (json['Items'] as List<dynamic>?)
-          ?.map((e) => SearchResultItems.fromJson(e as Map<String, dynamic>))
+      json['PageNo'] as int,
+      json['PageSize'] as int,
+      json['TotalCount'] as int,
+      (json['Items'] as List<dynamic>)
+          .map((e) => SearchResultItems.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

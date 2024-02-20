@@ -17,31 +17,31 @@ class SearchResultItems {
   );
 
   @JsonKey(name: 'Id')
-  int? id;
+  int id;
 
   @JsonKey(name: 'Name')
-  String? name;
+  String name;
 
   @JsonKey(name: 'Grade')
-  String? grade;
+  String grade;
 
   @JsonKey(name: 'Icon')
-  String? icon;
+  String icon;
 
   @JsonKey(name: 'BundleCount')
-  int? bundleCount;
+  int bundleCount;
 
   @JsonKey(name: 'TradeRemainCount')
   int? tradeRemainCount;
 
   @JsonKey(name: 'YDayAvgPrice')
-  double? yDayAvgPrice;
+  double yDayAvgPrice;
 
   @JsonKey(name: 'RecentPrice')
-  double? recentPrice;
+  double recentPrice;
 
   @JsonKey(name: 'CurrentMinPrice')
-  double? currentMinPrice;
+  double currentMinPrice;
 
   factory SearchResultItems.fromJson(Map<String, dynamic> json) =>
       _$SearchResultItemsFromJson(json);

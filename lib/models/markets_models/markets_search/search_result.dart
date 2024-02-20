@@ -8,16 +8,16 @@ class SearchResult {
   SearchResult(this.pageNo, this.pageSize, this.totalCount, this.items);
 
   @JsonKey(name: 'PageNo')
-  int? pageNo;
+  int pageNo;
 
   @JsonKey(name: 'PageSize')
-  int? pageSize;
+  int pageSize;
 
   @JsonKey(name: 'TotalCount')
-  int? totalCount;
+  int totalCount;
 
   @JsonKey(name: 'Items')
-  List<SearchResultItems>? items;
+  List<SearchResultItems> items;
 
   factory SearchResult.fromJson(Map<String, dynamic> json) =>
       _$SearchResultFromJson(json);

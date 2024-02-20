@@ -3,6 +3,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:lost_item/env.dart';
+import 'package:lost_item/models/markets_models/markets_search/search_result.dart';
+import 'package:lost_item/secret.dart';
+import 'package:http/http.dart' as http;
 
 class BookMark extends GetxController {
   
@@ -10,6 +14,7 @@ class BookMark extends GetxController {
   List<dynamic> listOfItems = [].obs;
 
   RxList bookMarkItemsId = [].obs;
+  var itemsList = [].obs;
 
   @override
   Future<void> onInit() async {
@@ -29,14 +34,15 @@ class BookMark extends GetxController {
   }
 
   takeBookMark() async {
+    await onInit();
     print('takeBookMark');
     bookMarkItemsId.clear();
     for (var element in listOfItems) {
       bookMarkItemsId.add(element['itemCode']);
     }
-    
     print(listOfItems);
     print(bookMarkItemsId);
+    // await refreshBookMark();
   }
 
   Future<bool> isBookMark(Map bookmarkInfo) async {
@@ -80,7 +86,39 @@ class BookMark extends GetxController {
   }
 
   refreshBookMark() async{
+    print('refreshBookMark');
+    var headers = {
+      'accept': 'application/json',
+      'authorization': 'Bearer ${Secret.devApiKey}',
+      'Content-Type': 'application/json',
+    };
+    // print(listOfItems.length);
+    listOfItems.forEach((element) async {
+      var response = await http.post(
+        Uri.parse(Env.marketSearch),
+        headers: headers,
+        body: json.encode({
+          "CategoryCode": element['categoryCode'],
+          "ItemName": element['itemName'],
+          "ItemGrade": element['itemGrade'],
+        }),
+      );
 
+      SearchResult searchResult;
+
+      if (response.statusCode == 200) {
+        var searchResultMap = jsonDecode(response.body);
+        searchResult = SearchResult.fromJson(searchResultMap);
+        searchResult.items.forEach((item) {
+          itemsList.add(item);
+        });
+        // print(itemsList);
+      }else{
+        print('error');
+      }
+    });
+    update();
+    print('refreshBookMark end');
   }
 
   createItemInfo(int categoryCode, int itemCode, String itemGrade, String itemName) {

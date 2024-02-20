@@ -6,13 +6,14 @@ import 'package:get/get.dart';
 import 'package:lost_item/screens/search/search.dart';
 import 'package:lost_item/utils/market_search.dart';
 import 'package:lost_item/utils/book_mark.dart';
+import 'package:lost_item/widgets/list_box.dart';
 // import 'package:lost_item/models/marketsModels/marketsOption/marketsCategories.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
   final marketSearch = Get.put(MarketSearch());
-  final func = Get.put(BookMark());
-  
+
+  final bookMark = Get.put(BookMark());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,7 @@ class Home extends StatelessWidget {
             onTap: () async {
               await marketSearch.getMarketsOption();
               marketSearch.initValue();
-              await func.takeBookMark();
+              await bookMark.takeBookMark();
               Get.to(() => Search());
             },
             child: const Padding(
@@ -49,8 +50,46 @@ class Home extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Container(),
+      body: GetBuilder<BookMark>(
+        builder: (context) {
+          return Obx(() => SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(
+                        bookMark.itemsList.isEmpty
+                            ? 0
+                            : bookMark.itemsList.length,
+                        (index) {
+                          var itemMap = bookMark.itemsList[index];
+                          var createdBookmarkInfo = bookMark.createItemInfo(
+                            marketSearch.searchData['selectCode'],
+                            itemMap.id,
+                            itemMap.grade,
+                            itemMap.name,
+                          );
+                          return defaultListBox(
+                            itemMap.icon,
+                            itemMap.name,
+                            itemMap.yDayAvgPrice,
+                            itemMap.recentPrice,
+                            itemMap.currentMinPrice,
+                            itemMap.tradeRemainCount,
+                            createdBookmarkInfo,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ));
+        }
       ),
       // bottomNavigationBar: const AdmobBanner(),
     );

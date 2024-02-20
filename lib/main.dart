@@ -6,7 +6,7 @@ import 'package:lost_item/utils/book_mark.dart';
 
 import 'screens/home/Home.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -21,6 +21,10 @@ void main() {
     statusBarColor: Colors.transparent, //상태바 투명처리
     statusBarIconBrightness: Brightness.dark,
   ));
+  
+  final bookMark = Get.put(BookMark());
+  await bookMark.takeBookMark();
+  await bookMark.refreshBookMark();
 
   runApp(const MyApp());
 }
@@ -40,9 +44,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    
-    BookMark().takeBookMark();
-
     return GetMaterialApp(
       theme: ThemeData.light()
           .copyWith(scaffoldBackgroundColor: const Color(0xFFDBDBDB)),

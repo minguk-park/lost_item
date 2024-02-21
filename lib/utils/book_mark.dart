@@ -92,7 +92,6 @@ class BookMark extends GetxController {
       'authorization': 'Bearer ${Secret.devApiKey}',
       'Content-Type': 'application/json',
     };
-    // print(listOfItems.length);
     listOfItems.forEach((element) async {
       var response = await http.post(
         Uri.parse(Env.marketSearch),
@@ -110,15 +109,13 @@ class BookMark extends GetxController {
         var searchResultMap = jsonDecode(response.body);
         searchResult = SearchResult.fromJson(searchResultMap);
         searchResult.items.forEach((item) {
-          itemsList.add(item);
+          if(bookMarkItemsId.contains(item.id)) itemsList.add(item);
         });
-        // print(itemsList);
       }else{
         print('error');
       }
     });
     update();
-    print('refreshBookMark end');
   }
 
   createItemInfo(int categoryCode, int itemCode, String itemGrade, String itemName) {

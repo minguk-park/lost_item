@@ -66,41 +66,34 @@ class Home extends StatelessWidget {
       body: GetBuilder<BookMark>(
         builder: (context) {
           return Obx(() => SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(
-                        bookMark.itemsList.isEmpty
-                            ? 0
-                            : bookMark.itemsList.length,
-                        (index) {
-                          var itemMap = bookMark.itemsList[index];
-                          var createdBookmarkInfo = bookMark.createItemInfo(
-                            marketSearch.searchData['selectCode'],
-                            itemMap.id,
-                            itemMap.grade,
-                            itemMap.name,
-                          );
-                          return defaultListBox(
-                            itemMap.icon,
-                            itemMap.name,
-                            itemMap.yDayAvgPrice,
-                            itemMap.recentPrice,
-                            itemMap.currentMinPrice,
-                            itemMap.tradeRemainCount,
-                            createdBookmarkInfo,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+            child: RefreshIndicator(
+              onRefresh: () async => await bookMark.refreshBookMark(),
+              child: ListView(
+                children: List.generate(
+                  bookMark.itemsList.isEmpty
+                      ? 0
+                      : bookMark.itemsList.length,
+                  (index) {
+                    var itemMap = bookMark.itemsList[index];
+                    var createdBookmarkInfo = bookMark.createItemInfo(
+                      marketSearch.searchData['selectCode'],
+                      itemMap.id,
+                      itemMap.grade,
+                      itemMap.name,
+                    );
+                    return defaultListBox(
+                      itemMap.icon,
+                      itemMap.name,
+                      itemMap.yDayAvgPrice,
+                      itemMap.recentPrice,
+                      itemMap.currentMinPrice,
+                      itemMap.tradeRemainCount,
+                      createdBookmarkInfo,
+                    );
+                  },
                 ),
-              ],
-            )
+              ),
+            ),
           ));
         }
       ),

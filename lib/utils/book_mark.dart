@@ -105,6 +105,7 @@ class BookMark extends GetxController {
           "ItemGrade": element['itemGrade'],
         }),
       );
+      // print(element);
 
       SearchResult searchResult;
 
@@ -112,7 +113,9 @@ class BookMark extends GetxController {
         var searchResultMap = jsonDecode(response.body);
         searchResult = SearchResult.fromJson(searchResultMap);
         searchResult.items.forEach((item) {
-          if(bookMarkItemsId.contains(item.id)) itemsList.add(item);
+          if(bookMarkItemsId.contains(item.id) && element['itemName'] == item.name){
+            itemsList.add(item);
+          }
         });
       }else{
         print('error');

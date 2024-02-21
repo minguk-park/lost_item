@@ -87,6 +87,9 @@ class BookMark extends GetxController {
 
   refreshBookMark() async{
     print('refreshBookMark');
+    
+    itemsList = [].obs;
+
     var headers = {
       'accept': 'application/json',
       'authorization': 'Bearer ${Secret.devApiKey}',

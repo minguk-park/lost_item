@@ -28,6 +28,19 @@ class Home extends StatelessWidget {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
+              await bookMark.refreshBookMark();
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0,
+              ),
+              child: Icon(Icons.refresh),
+            ),
+          ),
+          InkWell(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
               await marketSearch.getMarketsOption();
               marketSearch.initValue();
               await bookMark.takeBookMark();
@@ -35,7 +48,7 @@ class Home extends StatelessWidget {
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 15.0,
+                horizontal: 10.0,
               ),
               child: Icon(Icons.search),
             ),

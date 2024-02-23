@@ -102,7 +102,7 @@ class MarketSearch extends GetxController{
     }
   }
 
-  Future<void> postMarketsSearch(
+  Future<int> postMarketsSearch(
       String search, int categoryCode, String itemGrade) async {
     var headers = {
       'accept': 'application/json',
@@ -139,14 +139,10 @@ class MarketSearch extends GetxController{
       searchData['searchWord'] = search;
 
       update();
+
+      return 200;
     } else {
-      print(response.statusCode);
-      switch (response.statusCode) {
-        case 401:
-        default:
-          print('postMarketsSearch: 알 수 없는 오류');
-          break;
-      }
+      return response.statusCode;
     }
   }
 

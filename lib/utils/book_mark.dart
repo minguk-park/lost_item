@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class BookMark extends GetxController {
   
   static const storage = FlutterSecureStorage();
-  List<dynamic> listOfItems = [].obs;
+  List<dynamic> listOfItems = <dynamic>[].obs;
 
   RxList bookMarkItemsId = [].obs;
   var itemsList = [].obs;
@@ -85,17 +85,23 @@ class BookMark extends GetxController {
     await storage.write(key: 'bookmark', value: jsonEncode(listOfItems));
   }
 
-  refreshBookMark() async{
+  Future<int> refreshBookMark() async{
     print('refreshBookMark');
-    
+
     itemsList = [].obs;
+    int errorCode = 0;
 
     var headers = {
       'accept': 'application/json',
       'authorization': 'Bearer ${Secret.devApiKey}',
       'Content-Type': 'application/json',
     };
-    listOfItems.forEach((element) async {
+
+    for (var element in listOfItems) {
+      SearchResult searchResult;
+
+      if(errorCode != 0) break;
+
       var response = await http.post(
         Uri.parse(Env.marketSearch),
         headers: headers,
@@ -105,23 +111,24 @@ class BookMark extends GetxController {
           "ItemGrade": element['itemGrade'],
         }),
       );
-      // print(element);
-
-      SearchResult searchResult;
 
       if (response.statusCode == 200) {
         var searchResultMap = jsonDecode(response.body);
         searchResult = SearchResult.fromJson(searchResultMap);
-        searchResult.items.forEach((item) {
+        for (var item in searchResult.items) {
           if(bookMarkItemsId.contains(item.id) && element['itemName'] == item.name){
             itemsList.add(item);
           }
-        });
+        }
       }else{
-        print('error');
+        errorCode = response.statusCode;
       }
-    });
+    }
+
     update();
+
+    if(errorCode != 0) return errorCode;
+    return 200;
   }
 
   createItemInfo(int categoryCode, int itemCode, String itemGrade, String itemName) {

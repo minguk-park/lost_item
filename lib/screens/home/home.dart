@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lost_item/screens/search/search.dart';
+import 'package:lost_item/utils/exception_msg.dart';
 import 'package:lost_item/utils/market_search.dart';
 import 'package:lost_item/utils/book_mark.dart';
 import 'package:lost_item/widgets/list_box.dart';
@@ -65,9 +66,16 @@ class Home extends StatelessWidget {
       ),
       body: GetBuilder<BookMark>(
         builder: (context) {
+          refresh() async {
+            var errorCode = await bookMark.refreshBookMark();
+            if(errorCode != 200) {
+                ExceptionMsg().eMsg(errorCode);
+            }
+          }
+
           return Obx(() => SafeArea(
             child: RefreshIndicator(
-              onRefresh: () async => await bookMark.refreshBookMark(),
+              onRefresh: refresh,
               child: ListView(
                 children: List.generate(
                   bookMark.itemsList.isEmpty

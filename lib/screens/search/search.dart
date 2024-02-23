@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:lost_item/utils/exception_msg.dart';
 import 'package:lost_item/widgets/list_box.dart';
 import 'package:lost_item/widgets/search_box.dart';
 import 'package:lost_item/widgets/selet_dialog.dart';
@@ -63,9 +64,12 @@ class Search extends StatelessWidget {
                       defaultSearchBox(marketSearch.searchController, searchOnSubmit),
                       InkWell(
                         onTap: () async {
-                          print('tap icon');
-                          await marketSearch.postMarketsSearch(marketSearch.searchController.text,
+                          print('tap search icon');
+                          var errorCode = await marketSearch.postMarketsSearch(marketSearch.searchController.text,
                               marketSearch.searchData['selectCode'], "");
+                          if(errorCode != 200) {
+                              ExceptionMsg().eMsg(errorCode);
+                          }
                         },
                         child: const Icon(Icons.search),
                       ),

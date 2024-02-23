@@ -9,8 +9,7 @@ part of 'markets_categories.dart';
 MarketsCategories _$MarketsCategoriesFromJson(Map<String, dynamic> json) =>
     MarketsCategories(
       (json['Subs'] as List<dynamic>)
-          .map(
-              (e) => MarketsCategoriesSubs.fromJson(e as Map<String, dynamic>))
+          .map((e) => MarketsCategoriesSubs.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['Code'] as int,
       json['CodeName'] as String,

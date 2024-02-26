@@ -88,6 +88,7 @@ class BookMark extends GetxController {
   Future<int> refreshBookMark() async{
     print('refreshBookMark');
 
+    var oldItemList = itemsList;
     itemsList = [].obs;
     int errorCode = 0;
 
@@ -121,6 +122,7 @@ class BookMark extends GetxController {
           }
         }
       }else{
+        itemsList = oldItemList;
         errorCode = response.statusCode;
       }
     }

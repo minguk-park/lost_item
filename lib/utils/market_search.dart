@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:get/get_connect.dart';
 import 'package:lost_item/secret.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:lost_item/models/markets_models/markets_option/markets.dart';
 import 'package:lost_item/models/markets_models/markets_search/search_result.dart';
+import 'package:lost_item/utils/exception_msg.dart';
 
 import '../env.dart';
 
@@ -50,7 +50,12 @@ class MarketSearch extends GetxController{
     itemsListScrollController.addListener(() async {
       if (itemsListScrollController.position.pixels ==
           itemsListScrollController.position.maxScrollExtent) {
-        await postMarketsSearchPagenation();
+        postMarketsSearchPagenation().then((errorCode) {
+          if(errorCode != 200) {
+            print(errorCode);
+            ExceptionMsg().eMsg(errorCode);
+          }
+        });
       }
     });
   }
@@ -146,8 +151,8 @@ class MarketSearch extends GetxController{
     }
   }
 
-  Future<void> postMarketsSearchPagenation() async {
-    if (totalPageNo < searchData['curPage']) return;
+  Future<int> postMarketsSearchPagenation() async {
+    if (totalPageNo < searchData['curPage']) return 200;
     searchData['curPage'] = searchData['curPage'] + 1;
     var headers = {
       'accept': 'application/json',
@@ -174,14 +179,18 @@ class MarketSearch extends GetxController{
       });
 
       update();
+
+      return 200;
     } else {
       print(response.statusCode);
-      switch (response.statusCode) {
-        case 401:
-        default:
-          print('postMarketsSearch: 알 수 없는 오류');
-          break;
-      }
+      // print(response.statusCode);
+      // switch (response.statusCode) {
+      //   case 401:
+      //   default:
+      //     print('postMarketsSearch: 알 수 없는 오류');
+      //     break;
+      // }
+      return response.statusCode;
     }
   }
 
